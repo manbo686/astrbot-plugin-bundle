@@ -1,0 +1,7 @@
+name: astrbot_plugin_bili_activity
+display_name: B站活动
+desc: 在 B 站刷视频、读字幕/弹幕、抽帧、听音轨，会发评论和回复，带表情与颜文字
+version: 2.4.4
+author: DSH
+repo: ""
+astrbot_version: ">=4.0.0"

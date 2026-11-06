@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "target_session": "",
+  "active_from": "12:00",
+  "active_to": "24:00",
+  "target_min": 5,
+  "target_max": 6,
+  "min_gap_minutes": 25,
+  "catchup_minutes": 8,
+  "care_every": 1,
+  "diary_on_last": true,
+  "first_wake_check": true,
+  "note_watch": "",
+  "note_care": "",
+  "note_first": "",
+  "note_diary": "",
+  "windows": [
+    "12:00-14:00",
+    "18:00-24:00"
+  ],
+  "wakes_min": 5,
+  "wakes_max": 6,
+  "watch_min": 1,
+  "watch_max": 4,
+  "gap_base_minutes": 70
+}

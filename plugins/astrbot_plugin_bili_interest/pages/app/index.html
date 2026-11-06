@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>兴趣点引擎</title>
+<style>
+  :root{
+    --bg:#14161c; --card:rgba(255,255,255,.055); --line:rgba(255,255,255,.10);
+    --fg:#f4f6fa; --dim:rgba(244,246,250,.66); --faint:rgba(244,246,250,.42);
+    --accent:#63a6ff; --ok:#5fe0b0; --warn:#ffd166; --hot:#ff8a8a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:
+      radial-gradient(900px 500px at 15% -10%,rgba(99,166,255,.20),transparent 60%),
+      radial-gradient(700px 420px at 92% 0%,rgba(160,120,255,.16),transparent 60%),var(--bg);
+    color:var(--fg);font:14px/1.6 "PingFang SC","Microsoft YaHei",system-ui,sans-serif;padding:22px 26px 40px}
+  h1{display:flex;align-items:center;gap:10px;font-size:19px;margin:0 0 4px}
+  .badge{font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:20px;padding:2px 10px;background:var(--card)}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+  .btns{display:flex;gap:8px}
+  button{cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--fg);
+    border-radius:10px;padding:7px 14px;font-size:13px;transition:.15s}
+  button:hover{background:rgba(99,166,255,.16);border-color:rgba(99,166,255,.42)}
+  button.primary{background:rgba(99,166,255,.20);border-color:rgba(99,166,255,.50)}
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
+  @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+  .card h2{font-size:14px;margin:0 0 12px;color:var(--dim);font-weight:600;letter-spacing:.4px}
+  .meta{color:var(--faint);font-size:12px}
+  .ite{margin-bottom:14px}
+  .ite:last-child{margin-bottom:0}
+  .it-top{display:flex;align-items:baseline;gap:8px}
+  .it-name{font-weight:600}
+  .chip{font-size:11px;padding:1px 8px;border-radius:20px;border:1px solid rgba(99,166,255,.4);
+    color:#9ec8ff;background:rgba(99,166,255,.12)}
+  .wt{height:6px;border-radius:4px;background:rgba(0,0,0,.45);margin:7px 0 5px;overflow:hidden}
+  .wt i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#2f6df6,#7fb5ff)}
+  .reason{font-size:12.5px;color:var(--dim)}
+  .zone-row{display:grid;grid-template-columns:78px 44px minmax(0,1fr) 52px;gap:10px;align-items:center;margin-bottom:10px}
+  .zone-name{font-size:13px;text-align:right;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .zone-tag{display:flex;align-items:center;min-width:0}
+  .zone-tag .chip{font-size:10.5px;padding:0 6px;line-height:17px;white-space:nowrap}
+  .track{height:10px;border-radius:6px;background:rgba(0,0,0,.45);overflow:hidden;position:relative}
+  .track i{display:block;height:100%;background:linear-gradient(90deg,#1a5fd0,#63a6ff);border-radius:6px}
+  .track b{position:absolute;top:0;height:100%;background:rgba(95,224,176,.55)}
+  .zone-num{font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--dim);text-align:right;white-space:nowrap}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{color:var(--faint);font-weight:500;text-align:left;padding:6px 4px;border-bottom:1px solid var(--line)}
+  td{padding:7px 4px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--dim)}
+  td.b{color:var(--fg)}
+  .foot{margin-top:18px;color:var(--faint);font-size:12px;display:flex;justify-content:space-between}
+  .empty{color:var(--faint);padding:18px 0;text-align:center}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <h1>🎯 兴趣点引擎 <span class="badge" id="srcBadge">今日分区计划</span></h1>
+      <div class="meta" id="head">正在读取…</div>
+    </div>
+    <div class="btns">
+      <button id="roll" class="primary">重新生成</button>
+      <button id="refresh">刷新</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>今日兴趣点 <span class="meta" id="itCount"></span></h2>
+      <div id="interests"><div class="empty">还没有兴趣点</div></div>
+    </div>
+    <div class="card">
+      <h2>分区预算 <span class="meta" id="zoneCount"></span></h2>
+      <div id="zones"><div class="empty">还没有分配</div></div>
+      <div class="meta" id="zoneFoot" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>最近 7 天</h2>
+    <table>
+      <thead><tr><th>日期</th><th>视频</th><th>分区数</th><th>分配</th></tr></thead>
+      <tbody id="hist"><tr><td colspan="4" class="empty">暂无记录</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="foot"><span id="foot">—</span><span>兴趣点只影响她去哪个分区看，不限制单分区额度</span></div>
+
+<script>
+  const P = "astrbot_plugin_bili_interest";
+  const BRIDGE_CHANNEL = "astrbot-plugin-page";
+  const bridgePending = new Map();
+  let bridgeSeq = 0;
+  function embedded(){ try { return window.parent && window.parent !== window; } catch(e){ return false; } }
+  function bridgeReady(){ if (!embedded()) return; try { window.parent.postMessage({channel:BRIDGE_CHANNEL, kind:"ready"}, "*"); } catch(e){} }
+  window.addEventListener("message", function(ev){
+    const d = ev.data;
+    if (!d || d.channel !== BRIDGE_CHANNEL || d.kind !== "response") return;
+    const slot = bridgePending.get(d.requestId);
+    if (!slot) return;
+    bridgePending.delete(d.requestId); clearTimeout(slot.timer);
+    if (d.ok) slot.resolve(d.data); else slot.reject(new Error(d.error || "桥接返回失败"));
+  });
+  function bridge(endpoint, body){
+    return new Promise(function(resolve, reject){
+      if (!embedded()) { reject(new Error("不在面板 iframe 内")); return; }
+      const requestId = "interest-" + Date.now() + "-" + (++bridgeSeq);
+      const timer = setTimeout(function(){ bridgePending.delete(requestId); reject(new Error("面板桥接超时")); }, 15000);
+      bridgePending.set(requestId, {resolve:resolve, reject:reject, timer:timer});
+      const msg = { channel:BRIDGE_CHANNEL, kind:"request", requestId:requestId, endpoint:endpoint,
+                    action: body === undefined ? "api:get" : "api:post" };
+      if (body !== undefined) msg.body = body;
+      try { window.parent.postMessage(msg, "*"); } catch(e){ clearTimeout(timer); bridgePending.delete(requestId); reject(e); }
+    });
+  }
+  async function get(ep){
+    if (window.AstrBotPluginView && window.AstrBotPluginView.apiGet) return window.AstrBotPluginView.apiGet(ep);
+    try { return await bridge(ep); } catch (e) { /* 退到直连 */ }
+    const r = await fetch(`/api/v1/plugins/extensions/${P}/${ep}`, {credentials:"include"});
+    if (r.status === 401 || r.status === 403) throw new Error("没有面板登录凭证，请从面板插件卡片进入");
+    return await r.json();
+  }
+  async function post(ep, body){
+    if (window.AstrBotPluginView && window.AstrBotPluginView.apiPost) return window.AstrBotPluginView.apiPost(ep, body||{});
+    try { return await bridge(ep, body||{}); } catch (e) { /* 退到直连 */ }
+    const r = await fetch(`/api/v1/plugins/extensions/${P}/${ep}`, {method:"POST", credentials:"include",
+      headers:{"Content-Type":"application/json"}, body:JSON.stringify(body||{})});
+    if (r.status === 401 || r.status === 403) throw new Error("没有面板登录凭证，请从面板插件卡片进入");
+    return await r.json();
+  }
+  const $ = id => document.getElementById(id);
+
+  function ts(sec){
+    if (!sec) return "—";
+    const d = new Date(sec*1000);
+    return `${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  }
+
+  function render(st){
+    const its = st.interests || [], zs = st.zones || [];
+    const extraV = ((st.hot || {}).count || 0) + ((st.deepseek || {}).count || 0);
+  $("head").textContent = extraV ? `${st.date} · 额度 ${st.total_videos} 个 + 额外 ${extraV} 个（热门/DeepSeek） · 生成于 ${ts(st.generated_at)}` : `${st.date} · 计划 ${st.total_videos} 个视频 · 生成于 ${ts(st.generated_at)}`;
+    const src = st.source || {};
+    $("srcBadge").textContent = [src.persona?"人格":"", src.mood?"心情":"", src.diary?"日记":""].filter(Boolean).join(" + ") || "无上下文";
+    $("itCount").textContent = its.length ? `（${its.length} 个）` : "";
+    if (!its.length){ $("interests").innerHTML = '<div class="empty">还没有兴趣点，点「重新生成」</div>'; }
+    else {
+      $("interests").innerHTML = its.map(it => `
+        <div class="ite">
+          <div class="it-top"><span class="it-name">${it.name}</span><span class="chip">${it.zone}</span></div>
+          <div class="wt"><i style="width:${Math.min(100, (it.weight||1)/5*100)}%"></i></div>
+          <div class="reason">${it.reason||""}</div>
+        </div>`).join("");
+    }
+    $("zoneCount").textContent = zs.length ? `（${zs.length} 个分区）` : "";
+    if (!zs.length){ $("zones").innerHTML = '<div class="empty">还没有分配</div>'; $("zoneFoot").textContent = ""; }
+    else {
+      const ex = st.explore || [], ue = st.used_explore || {}, ds = st.deepseek || {}, hot = st.hot || {};
+      const max = Math.max(...zs.map(z => z.plan), ...ex.map(e => e.count), hot.count || 1, ds.count || 1, 1);
+      const rows = zs.map(z => `
+        <div class="zone-row">
+          <div class="zone-name">${z.zone}</div>
+          <div class="zone-tag"></div>
+          <div class="track"><i style="width:${z.plan/max*100}%"></i><b style="width:${Math.min(z.plan,z.used)/max*100}%;left:0"></b></div>
+          <div class="zone-num">${z.used}/${z.plan}</div>
+        </div>`);
+      ex.forEach(e => {
+        const u = Math.min(ue[e.zone] || 0, e.count);
+        rows.push(`
+        <div class="zone-row">
+          <div class="zone-name">${e.zone}</div>
+          <div class="zone-tag"><span class="chip">探索</span></div>
+          <div class="track"><i style="width:${e.count/max*100}%"></i><b style="width:${u/max*100}%;left:0"></b></div>
+          <div class="zone-num">${u}/${e.count}</div>
+        </div>`);
+      });
+      if (hot.count) {
+        const hu = Math.min(st.used_hot || 0, hot.count);
+        rows.push(`
+        <div class="zone-row">
+          <div class="zone-name">热门</div>
+          <div class="zone-tag"><span class="chip">固定</span></div>
+          <div class="track"><i style="width:${hot.count/max*100}%"></i><b style="width:${hu/max*100}%;left:0"></b></div>
+          <div class="zone-num">${hu}/${hot.count}</div>
+        </div>`);
+      }
+      if (ds.count) {
+        const du = Math.min(st.used_deepseek || 0, ds.count);
+        rows.push(`
+        <div class="zone-row">
+          <div class="zone-name">DeepSeek</div>
+          <div class="zone-tag"><span class="chip">固定</span></div>
+          <div class="track"><i style="width:${ds.count/max*100}%"></i><b style="width:${du/max*100}%;left:0"></b></div>
+          <div class="zone-num">${du}/${ds.count}</div>
+        </div>`);
+      }
+      $("zones").innerHTML = rows.join("");
+      const sum = zs.reduce((a,z)=>a+z.plan,0) + ex.reduce((a,e)=>a+e.count,0) + (hot.count||0) + (ds.count||0);
+      const used = zs.reduce((a,z)=>a+z.used,0)
+        + ex.reduce((a,e)=>a+Math.min(ue[e.zone]||0,e.count),0)
+        + Math.min(st.used_hot||0, hot.count||0)
+        + Math.min(st.used_deepseek||0, ds.count||0);
+      const extraN = (hot.count||0) + (ds.count||0);
+      $("zoneFoot").textContent = `共 ${sum} 个视频（含 ${ex.length} 个探索），已看 ${used} 个` + (extraN ? `；另有 ${hot.count||0} 个热门、${ds.count||0} 个 DeepSeek 不计入每日限额 · ` : "") + "绿色为已看部分";
+    }
+    const h = st.history || [];
+    $("hist").innerHTML = h.length ? h.slice().reverse().map(r => `
+      <tr><td class="b">${r.date}</td><td>${r.total}</td><td>${r.zones}</td>
+      <td>${Object.entries(r.budget||{}).map(([k,v])=>`${k}×${v}`).join("　")}</td></tr>`).join("")
+      : '<tr><td colspan="4" class="empty">暂无记录</td></tr>';
+    $("foot").textContent = "最后更新 " + new Date().toLocaleTimeString("zh-CN",{hour12:false});
+  }
+
+  async function load(){ try{ render(await get("state")); }catch(e){ $("head").textContent = "读取失败：" + e.message; } }
+  $("refresh").onclick = load;
+  $("roll").onclick = async () => {
+    $("roll").disabled = true; $("roll").textContent = "生成中…";
+    try { render(await post("roll", {})); } catch(e){ alert("生成失败：" + e.message); }
+    finally { $("roll").disabled = false; $("roll").textContent = "重新生成"; }
+  };
+  bridgeReady();
+  load();
+  setInterval(load, 15000);
+</script>
+</body>
+</html>

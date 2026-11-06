@@ -1,0 +1,7 @@
+name: astrbot_plugin_napcat_autostart
+display_name: NapCat 自启动
+desc: AstrBot 启动后自动拉起 NapCat，让机器人 QQ 上线
+version: 1.0.0
+author: DSH
+repo: ""
+astrbot_version: ">=4.0.0"

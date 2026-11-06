@@ -1,0 +1,7 @@
+name: astrbot_plugin_screen_control
+display_name: 屏幕控制
+desc: 只关显示器不睡眠，关屏期间顶住系统待机，进程与网络照常
+version: 1.0.0
+author: DSH
+repo: ""
+astrbot_version: ">=4.0.0"

@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "sessions": [],
+  "idle_min_minutes": 45,
+  "idle_max_minutes": 180,
+  "daily_max": 6,
+  "quiet_hours": "2-9",
+  "probability": 0.6,
+  "min_gap_minutes": 40,
+  "mood_star": "astrbot_plugin_mood",
+  "interest_star": "astrbot_plugin_bili_interest",
+  "kinds": {
+    "care": 22,
+    "greet": 12,
+    "wonder": 20,
+    "share": 18,
+    "ask_permission": 10,
+    "memory_gap": 10,
+    "miss": 8
+  }
+}

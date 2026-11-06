@@ -1,0 +1,7 @@
+name: astrbot_plugin_proactive_chat
+display_name: 主动聊天
+desc: 上一次对话结束后不定时主动找人说话，可按心情与兴趣点选题
+version: 1.0.0
+author: DSH
+repo: ""
+astrbot_version: ">=4.0.0"

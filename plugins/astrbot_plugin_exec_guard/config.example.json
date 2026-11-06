@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "allow_admin": true,
+  "allow_patterns": [
+    "FriendMessage:123456789"
+  ],
+  "blocked_tools": [
+    "astrbot_execute_python",
+    "astrbot_execute_ipython",
+    "astrbot_execute_shell",
+    "astrbot_shell_session",
+    "astrbot_file_read_tool",
+    "astrbot_file_write_tool",
+    "astrbot_file_edit_tool",
+    "astrbot_grep_tool",
+    "astrbot_upload_file",
+    "astrbot_download_file",
+    "astrbot_execute_browser",
+    "astrbot_execute_browser_batch",
+    "astrbot_run_browser_skill",
+    "astrbot_cua_screenshot",
+    "astrbot_cua_mouse_click",
+    "astrbot_cua_keyboard_type",
+    "screen_control"
+  ]
+}

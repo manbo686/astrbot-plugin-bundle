@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "napcat_dir": "",
+  "qq_number": "0",
+  "qq_path": "",
+  "kill_qq_before_start": true,
+  "start_delay_seconds": 6,
+  "extra_args": ""
+}

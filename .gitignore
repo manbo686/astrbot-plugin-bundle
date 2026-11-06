@@ -1,0 +1,17 @@
+# 运行时数据与本地配置，永远不进仓库
+data/
+config.json
+*.zip
+
+# 打包产物（用 package_zips.py 生成，发布时作为 Release 附件）
+dist/
+
+# 备份与缓存
+*.bak
+*.bak_*
+__pycache__/
+*.pyc
+
+# 系统杂物
+.DS_Store
+Thumbs.db

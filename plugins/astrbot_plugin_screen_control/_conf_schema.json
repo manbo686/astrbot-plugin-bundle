@@ -1,0 +1,64 @@
+{
+  "enabled": {
+    "type": "bool",
+    "description": "启用屏幕控制",
+    "hint": "关掉后指令与工具都不再生效。",
+    "default": true
+  },
+  "admin_only": {
+    "type": "bool",
+    "description": "仅管理员可用",
+    "hint": "开启后只有 admins_id 里的账号（或下面额外放行的 QQ）能关屏幕。",
+    "default": true
+  },
+  "allowed_user_ids": {
+    "type": "list",
+    "description": "额外放行的 QQ 号",
+    "hint": "即便不是管理员，这里列出的 QQ 也能使用；每行一个号。",
+    "default": []
+  },
+  "delay_seconds": {
+    "type": "float",
+    "description": "执行延迟（秒）",
+    "hint": "先让她把回复发出去，再关屏。1~3 秒比较自然。",
+    "default": 1.5
+  },
+  "wake_fallback": {
+    "type": "bool",
+    "description": "亮屏时补一记鼠标事件",
+    "hint": "个别显示器不认系统的点亮指令，补一个零位移鼠标事件能唤醒。",
+    "default": true
+  },
+  "prevent_standby": {
+    "type": "bool",
+    "description": "关屏期间防止系统待机",
+    "hint": "本机是 Modern Standby 机型，屏幕一灭系统很快进入低功耗待机、进程被节流。开启后关屏期间顶住待机，亮屏时自动释放。",
+    "default": true
+  },  "llm_tool_enabled": {
+    "type": "bool",
+    "description": "开放给 LLM 工具",
+    "hint": "开启后可以直接对她说「帮我把屏幕关了」，不用打指令。",
+    "default": true
+  },
+  "reply_off": {
+    "type": "string",
+    "description": "关屏时的回复",
+    "default": "好～屏幕关上了，电脑没睡，我还在线。"
+  },
+  "reply_on": {
+    "type": "string",
+    "description": "亮屏时的回复",
+    "default": "屏幕点亮啦～"
+  },
+  "reply_denied": {
+    "type": "string",
+    "description": "无权限时的回复",
+    "default": "这个只能主人让我做哦。"
+  },
+  "reply_unsupported": {
+    "type": "string",
+    "description": "平台不支持时的回复",
+    "default": "这台机器不是 Windows，我关不了屏幕。"
+  }
+}
+

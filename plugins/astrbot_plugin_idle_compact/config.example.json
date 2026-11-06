@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "dry_run": false,
+  "idle_minutes": 30,
+  "threshold_tokens": 60000,
+  "keep_recent_tokens": 12000,
+  "chunk_tokens": 50000,
+  "max_chunks": 100,
+  "tool_text_chars": 800,
+  "min_messages": 8,
+  "scan_interval_seconds": 120,
+  "max_age_days": 7,
+  "persona_filter": [],
+  "only_conversation_ids": [],
+  "debug": false,
+  "instruction": ""
+}

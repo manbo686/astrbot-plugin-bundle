@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "price_in_miss": 2.0,
+  "price_in_hit": 0.5,
+  "price_out": 8.0,
+  "keep_days": 30,
+  "show_recent": 10
+}

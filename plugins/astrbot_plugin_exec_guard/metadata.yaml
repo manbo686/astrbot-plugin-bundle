@@ -1,0 +1,7 @@
+name: astrbot_plugin_exec_guard
+display_name: 执行权限守卫
+desc: 只在指定会话放行本机执行/文件/远程控制类工具，其它会话自动移除
+version: 1.0.0
+author: DSH
+repo: ""
+astrbot_version: ">=4.0.0"

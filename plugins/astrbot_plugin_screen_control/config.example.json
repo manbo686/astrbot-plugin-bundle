@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "admin_only": true,
+  "allowed_user_ids": [],
+  "delay_seconds": 1.5,
+  "wake_fallback": true,
+  "prevent_standby": true,
+  "llm_tool_enabled": true,
+  "reply_off": "好～屏幕关上了，电脑没睡，我还在线。",
+  "reply_on": "屏幕点亮啦～",
+  "reply_denied": "这个只能主人让我做哦。",
+  "reply_unsupported": "这台机器不是 Windows，我关不了屏幕。"
+}
