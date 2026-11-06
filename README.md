@@ -4,6 +4,8 @@
 
 这些插件都是给一只具体的机器人写的，抽出来后可以给别人用，但**默认值全是空的**，装好后需要在 `config.json` 里填自己的会话、QQ、路径。
 
+仓库：<https://github.com/manbo686/astrbot-plugin-bundle> ｜ 下载：<https://github.com/manbo686/astrbot-plugin-bundle/releases>
+
 ## 包含哪些
 
 | 目录 | 名称 | 版本 | 做什么 |
@@ -23,7 +25,7 @@
 
 三种方式，选一种：
 
-1. **面板上传**：AstrBot WebUI →「插件」→「安装」→ 上传 zip（zip 根目录就是插件名）
+1. **下载 zip 安装**：到 [Releases](https://github.com/manbo686/astrbot-plugin-bundle/releases) 下载对应插件，AstrBot WebUI →「插件」→「安装」→ 上传 zip（zip 根目录就是插件名）
 2. **手动解压**：把插件目录整个放到 `data/plugins/` 下，重启或重载插件
 3. **从仓库拷**：`cp -r plugins/<name> <AstrBot>/data/plugins/`
 
