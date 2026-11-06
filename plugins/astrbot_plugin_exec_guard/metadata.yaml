@@ -3,5 +3,5 @@ display_name: 执行权限守卫
 desc: 只在指定会话放行本机执行/文件/远程控制类工具，其它会话自动移除
 version: 1.0.0
 author: DSH
-repo: ""
+repo: "https://github.com/manbo686/astrbot-plugin-bundle/tree/main/plugins/astrbot_plugin_exec_guard"
 astrbot_version: ">=4.0.0"

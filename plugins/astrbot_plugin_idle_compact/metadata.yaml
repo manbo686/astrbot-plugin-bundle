@@ -3,5 +3,5 @@ display_name: 闲置边界压缩
 desc: 只在会话闲置时压缩历史，先归档再写回，不打断前缀缓存；被压掉的原文可检索
 version: 1.0.0
 author: DSH
-repo: ""
+repo: "https://github.com/manbo686/astrbot-plugin-bundle/tree/main/plugins/astrbot_plugin_idle_compact"
 astrbot_version: ">=4.0.0"

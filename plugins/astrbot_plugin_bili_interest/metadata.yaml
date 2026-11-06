@@ -3,5 +3,5 @@ display_name: 兴趣点引擎
 desc: 每天生成一批兴趣点，把视频额度按权重分到分区，另发探索位、热门位与 DeepSeek 位；带面板
 version: 1.2.0
 author: DSH
-repo: ""
+repo: "https://github.com/manbo686/astrbot-plugin-bundle/tree/main/plugins/astrbot_plugin_bili_interest"
 astrbot_version: ">=4.0.0"

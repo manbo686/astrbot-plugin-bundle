@@ -3,5 +3,5 @@ display_name: Token 电表
 desc: 记录每次模型调用的 token、缓存命中与请求结构，按天落盘并估算花费
 version: 1.0.0
 author: DSH
-repo: ""
+repo: "https://github.com/manbo686/astrbot-plugin-bundle/tree/main/plugins/astrbot_plugin_token_meter"
 astrbot_version: ">=4.0.0"

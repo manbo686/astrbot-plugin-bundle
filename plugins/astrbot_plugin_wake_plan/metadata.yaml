@@ -3,5 +3,5 @@ display_name: 醒来时刻表
 desc: 把定时任务统一挂到「醒来点」上：按时间窗排若干次醒来，每次派发不同的事
 version: 1.0.3
 author: DSH
-repo: ""
+repo: "https://github.com/manbo686/astrbot-plugin-bundle/tree/main/plugins/astrbot_plugin_wake_plan"
 astrbot_version: ">=4.0.0"
