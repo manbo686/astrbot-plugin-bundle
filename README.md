@@ -123,4 +123,6 @@ cp config.example.json config.json
 
 ## 许可
 
-MIT，见 [LICENSE](LICENSE)。
+AGPL-3.0，见 [LICENSE](LICENSE)。
+
+简单说：可以自由使用、修改、再分发；但**改了要开源**，如果把它做成网络服务给别人用，也要把改后的源码提供出来。商用同样受此约束。
